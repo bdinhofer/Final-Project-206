@@ -8,11 +8,15 @@ def most_valuable_NBA(url):
     h3 = soup.find_all('h3')
     nba_teams = []
     for tag in h3:
-        #print(tag.text)
-        h4 = soup.find('h4').text
-        #print(value)
+       #print(tag)
+        h4 = tag.find_next('h4').text
+        #print(h4)
         nba_teams.append((tag.text, h4[9:]))
-    return nba_teams
+    real_list = []
+    for tup in nba_teams:
+        if tup[0] != '':
+            real_list.append(tup)
+    return real_list
 
 def most_valuable_NFL(url):
     r = requests.get(url)
@@ -39,7 +43,7 @@ def most_valuable_NHL(url):
         value = name.find_next('td')
         tup = (name.text, value.text)
         nhl_teams.append(tup)
-    return nhl_teams[1:0]
+    return nhl_teams[1:]
 
 def most_valuable_MLB(url):
     mlb_teams = []
@@ -53,12 +57,22 @@ def most_valuable_MLB(url):
     print(mlb_teams.index(('New York Yankees', ' $5.250 billion')))
     return mlb_teams[2:]
 
+def create_list(list1, list2, list3, list4):
+    sports = [list1, list2, list3, list4]
+    teams_list = []
+    for lst in sports:
+        #print(lst)
+        teams_list.extend(lst)
+    return teams_list
+
         
 
-#print(most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021/02/10/nba-team-values-2021-knicks-keep-top-spot-at-5-billion-warriors-bump-lakers-for-second-place/?sh=37469da645b7'))
-#print(most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4'))
-#print(most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019'))
-#print(most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/'))
+NBA_teams = most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021/02/10/nba-team-values-2021-knicks-keep-top-spot-at-5-billion-warriors-bump-lakers-for-second-place/?sh=37469da645b7')
+NFL_teams = most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4')
+NHL_teams = most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019')
+MLB_teams = most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/')
+print(create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams))
+
 
 
 
