@@ -10,10 +10,12 @@ def set_up_db(db_name):
     cur = conn.cursor()
     return cur, conn
 
-def readDataFromFile(filename):
+def read_Data_From_File(filename):
     full_path = os.path.join(os.path.dirname(__file__), filename)
     f = open(full_path)
     file_data = f.read()
     f.close()
     json_data = json.loads(file_data)
     return json_data
+
+def create_players_table(data, cur, conn):
