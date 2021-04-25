@@ -19,3 +19,4 @@ def read_Data_From_File(filename):
     return json_data
 
 def create_players_table(data, cur, conn):
+    
