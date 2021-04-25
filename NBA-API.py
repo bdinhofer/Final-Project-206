@@ -42,6 +42,9 @@ def get_team_stats():
         for season in r['TeamStats']:
             if season['YEAR'] == '2019-20':
                 team_stats_2019.append(season)
+    f = open("TEAM_STATS.txt", 'w')
+    f.write(str(team_stats_2019))
+    f.close()
     return team_stats_2019
 
 def create_db(players, teams):
@@ -49,7 +52,7 @@ def create_db(players, teams):
 
 
 def main():
-    print('Open Terminal')
+    get_team_stats()
 
 main()
 
