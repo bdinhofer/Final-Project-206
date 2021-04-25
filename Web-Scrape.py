@@ -11,7 +11,7 @@ def most_valuable_NBA(url):
        #print(tag)
         h4 = tag.find_next('h4').text
         #print(h4)
-        nba_teams.append((tag.text, h4[9:]))
+        nba_teams.append((tag.text[3:].strip(), h4[9:]))
     real_list = []
     for tup in nba_teams:
         if tup[0] != '':
@@ -28,7 +28,7 @@ def most_valuable_NFL(url):
         name = tag.text
         value = tag.find_next('p').text
         #print(value)
-        nfl_teams.append((name, value[9:]))
+        nfl_teams.append((name[3:].strip(), value[9:]))
     nfl_teams = nfl_teams[1:]
     nfl_teams_sorted = sorted(nfl_teams, key = lambda x: x[1]) 
     return nfl_teams_sorted[1:]
@@ -41,7 +41,7 @@ def most_valuable_NHL(url):
     for row in rows:
         name = row.find('td')
         value = name.find_next('td')
-        tup = (name.text, value.text)
+        tup = (name.text[3:].strip(), value.text)
         nhl_teams.append(tup)
     return nhl_teams[1:]
 
@@ -71,7 +71,9 @@ NBA_teams = most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021
 NFL_teams = most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4')
 NHL_teams = most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019')
 MLB_teams = most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/')
-print(create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams))
+teams_list = create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams)
+for i in teams_list:
+
 
 
 
