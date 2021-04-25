@@ -66,13 +66,16 @@ def create_list(list1, list2, list3, list4):
     return teams_list
 
         
+def main():
+    NBA_teams = most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021/02/10/nba-team-values-2021-knicks-keep-top-spot-at-5-billion-warriors-bump-lakers-for-second-place/?sh=37469da645b7')
+    NFL_teams = most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4')
+    NHL_teams = most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019')
+    MLB_teams = most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/')
+    teams_list = create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams)
+    return teams_list
 
-NBA_teams = most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021/02/10/nba-team-values-2021-knicks-keep-top-spot-at-5-billion-warriors-bump-lakers-for-second-place/?sh=37469da645b7')
-NFL_teams = most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4')
-NHL_teams = most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019')
-MLB_teams = most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/')
-teams_list = create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams)
-for i in teams_list:
+main()
+
 
 
 
