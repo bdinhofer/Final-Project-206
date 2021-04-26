@@ -39,6 +39,10 @@ def sort_pop_list(lst, tup):
     sorted_lst = sorted(lst, key = lambda x: x[1], reverse = True)
     return sorted_lst[:150]
 
-city_pops = (get_city_populations())
-#tor_tuple = (get_pop_toronto())
-#print(sort_pop_list(city_pops, tor_tuple)) 
+def main():
+    city_pops = (get_city_populations())
+    tor_tuple = (get_pop_toronto())
+    full_list = sort_pop_list(city_pops, tor_tuple)
+    return full_list
+
+main()
