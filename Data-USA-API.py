@@ -43,8 +43,10 @@ def write_to_file():
     city_pops = (get_city_populations())
     tor_tuple = (get_pop_toronto())
     full_list = sort_pop_list(city_pops, tor_tuple)
-    f = open('Cities.txt', 'w')
-    f.write(str(full_list))
+    f = open('Cities.csv', 'w')
+    for i in full_list:
+        f.write(i[0] + ',' + str(i[1]))
+        f.write('\n')
     f.close()
 
 write_to_file()
