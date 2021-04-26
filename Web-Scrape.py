@@ -65,16 +65,22 @@ def create_list(list1, list2, list3, list4):
         teams_list.extend(lst)
     return teams_list
 
-        
-def main():
+def write_to_file():        
     NBA_teams = most_valuable_NBA('https://www.forbes.com/sites/kurtbadenhausen/2021/02/10/nba-team-values-2021-knicks-keep-top-spot-at-5-billion-warriors-bump-lakers-for-second-place/?sh=37469da645b7')
     NFL_teams = most_valuable_NFL('https://www.forbes.com/sites/mikeozanian/2020/09/10/the-nfls-most-valuable-teams-2020-how-much-is-your-favorite-team-worth/?sh=57f46abe2ba4')
     NHL_teams = most_valuable_NHL('https://dailyhive.com/vancouver/nhl-team-values-forbes-2019')
     MLB_teams = most_valuable_MLB('https://brobible.com/sports/article/most-valuable-mlb-teams-2021-yankees-redsox/')
     teams_list = create_list(NBA_teams, NFL_teams, NHL_teams, MLB_teams)
-    return teams_list
+    f = open('NetWorths.csv', 'w')
+    for i in teams_list:
+        f.write(i[0] + ',' + str(i[1]))
+        f.write('\n')
+    f.close()
 
-main()
+write_to_file()
+
+
+
 
 
 
