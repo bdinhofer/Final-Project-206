@@ -49,6 +49,10 @@ def create_team_table(data, cur, conn, i):
     return None 
 
 def create_player_table(data, cur, conn, i):
+    for player in data:
+        if player[1]['TEAM_ABBREVIATION'] == 'TOT':
+            data.remove(player)
+
     cur.execute("CREATE TABLE IF NOT EXISTS nba_players (team_id INTEGER, name TEXT, gp INTEGER, reb INTEGER, ast INTEGER, pts INTEGER)")
     cur.execute("SELECT id FROM nba_teams")
     lst = []
@@ -59,7 +63,7 @@ def create_player_table(data, cur, conn, i):
             for id_ in lst:
                 if id_ == data[i][1]['TEAM_ID']:
                     team_id = id_ 
-            cur.execute("INSERT INTO nba_players (team_id,name,gp,reb,ast,pts) VALUES (?,?,?,?,?,?)", (team_id, data[i][0], data[i][1]['GP'], data[i][1]['REB'], data[i][1]['AST'], data[i][1]['PTS']))
+            cur.execute("INSERT INTO nba_players (team_id,name,gp,reb,ast,pts) VALUES (?,?,?,?,?,?)", (team_id, data[i][0], data[i][1]['GP'], data[i][1]['REB'], data[i][1]['AST'], data[i][1]['PTS'],))
         except:
             break
         i += 1
@@ -97,9 +101,7 @@ def create_Net_worth_table(lines, cur, conn, i):
 def main1():
     cur, conn = set_up_db('Final-Data.db')
     d = read_Data_From_File('PLAYER_STATS.txt')
-    create_player_table(d, cur, conn, 25) #Each time this code runs increase i by 25
-
-#main1()
+    create_player_table(d, cur, conn, 0) #Each time this code runs increase i by 25
 
 def main2():
     cur, conn = set_up_db('Final-Data.db')
@@ -108,7 +110,7 @@ def main2():
     #value_lines = read_list_from_file('NetWorths.csv')
     #create_Net_worth_table(value_lines, cur, conn, 100) #Each time this code runs increase i by 25
 
-main2()
+main1()
 
 
 
