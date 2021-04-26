@@ -39,10 +39,16 @@ def sort_pop_list(lst, tup):
     sorted_lst = sorted(lst, key = lambda x: x[1], reverse = True)
     return sorted_lst[:150]
 
-def main():
+def write_to_file():
     city_pops = (get_city_populations())
     tor_tuple = (get_pop_toronto())
     full_list = sort_pop_list(city_pops, tor_tuple)
-    return full_list
+    f = open('Cities.txt', 'w')
+    f.write(str(full_list))
+    f.close()
 
-main()
+write_to_file()
+    
+
+
+
