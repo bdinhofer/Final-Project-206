@@ -8,7 +8,7 @@ import time
 def get_player_stats():
     from nba_api.stats.static import players
     from nba_api.stats.endpoints import playerprofilev2
-    f = open('PLAYER_STATS.txt', 'w')
+    
     player_dict = players.get_active_players()
     season_stats_2019 = []
     for player in player_dict:
@@ -20,7 +20,8 @@ def get_player_stats():
         r = json.loads(season_stats.get_normalized_json())
         for stats in r["SeasonTotalsRegularSeason"]:
             if stats['SEASON_ID'] == "2019-20":
-                season_stats_2019.append((player['full_name'],stats))
+                season_stats_2019.append([player['full_name'],stats])
+    f = open('PLAYER_STATS.txt', 'w')
     f.write(str(season_stats_2019))
     f.close()
     return season_stats_2019
@@ -47,12 +48,11 @@ def get_team_stats():
     f.close()
     return team_stats_2019
 
-def create_db(players, teams):
-    pass
+
 
 
 def main():
-    get_team_stats()
+    get_player_stats()
 
 main()
 
