@@ -19,6 +19,20 @@ def read_Data_From_File(filename):
     json_data = json.loads(file_data)
     return json_data
 
+def read_list_from_file(filename):
+    full_path = os.path.join(os.path.dirname(__file__), filename)
+    f = open(full_path)
+    file_data = f.readlines()
+    f.close()
+    lines = []
+    for line in file_data:
+        line = line.split(',')
+        new_line = []
+        for j in line:
+            j = j.strip()
+            new_line.append(j)
+        lines.append(new_line)
+    return lines
 
 
 def create_team_table(data, cur, conn, i):
@@ -53,13 +67,48 @@ def create_player_table(data, cur, conn, i):
             break
     conn.commit()
     return None
-            
+
+def create_city_table(lines, cur, conn, i):
+    cur.execute("CREATE TABLE IF NOT EXISTS cities (city_name TEXT, population INTEGER)")
+    while True:
+        try:
+            cur.execute("INSERT INTO cities (city_name, population) VALUES (?,?)", (lines[i][0].strip(), int(lines[i][2])))
+        except:
+            break
+        i += 1
+        if i % 25 == 0 or i > len(lines):
+            break
+    conn.commit()
+    return None
+
+def create_Net_worth_table(lines, cur, conn, i):
+    cur.execute("CREATE TABLE IF NOT EXISTS Net_Worths (team_name TEXT, net_worth text)")
+    while True:
+        try:
+            cur.execute("INSERT INTO Net_worths (team_name, net_worth) VALUES (?,?)", (lines[i][0].strip(), (lines[i][1])))
+        except:
+            break
+        i += 1
+        if i % 25 == 0 or i > len(lines):
+            break
+    conn.commit()
+    return None
+                                                          
 def main1():
     cur, conn = set_up_db('Final-Data.db')
     d = read_Data_From_File('PLAYER_STATS.txt')
     create_player_table(d, cur, conn, 25) #Each time this code runs increase i by 25
 
-main1()
+#main1()
+
+def main2():
+    cur, conn = set_up_db('Final-Data.db')
+    city_lines = read_list_from_file('Cities.csv')
+    create_city_table(city_lines, cur, conn, 125) #Each time this code runs increase i by 25
+    #value_lines = read_list_from_file('NetWorths.csv')
+    #create_Net_worth_table(value_lines, cur, conn, 100) #Each time this code runs increase i by 25
+
+main2()
 
 
 
